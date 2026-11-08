@@ -1,0 +1,62 @@
+# Psalm e Rector contro gli stub di ogni versione supportata del server:
+# stable33 (la minima, quella di composer.lock), stable34 e stable35 bloccano;
+# master/36 e' un preavviso e non blocca.
+name: Static analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: static-analysis-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  static-analysis:
+    runs-on: ubuntu-latest
+    name: psalm + rector (Nextcloud ${{ matrix.server-version }})
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - server-version: stable33
+            ocp-constraint: '^33.0.0'
+            experimental: false
+          - server-version: stable34
+            ocp-constraint: '^34.0.0'
+            experimental: false
+          - server-version: stable35
+            ocp-constraint: '^35.0.0'
+            experimental: false
+          # La 36 è in sviluppo: l'esito va letto a ogni rilascio, ma non blocca.
+          - server-version: master
+            ocp-constraint: 'dev-master'
+            experimental: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          ini-file: development
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Use the stubs of the target server version
+        if: matrix.server-version != 'stable33'
+        run: composer require --dev --no-interaction --no-progress --ignore-platform-reqs nextcloud/ocp:${{ matrix.ocp-constraint }}
+
+      - name: Psalm
+        run: composer run psalm -- --monochrome --no-progress --output-format=github
+
+      - name: Rector
+        run: composer run rector -- --no-progress-bar

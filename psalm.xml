@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<psalm
+	errorLevel="1"
+	resolveFromConfigFile="true"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://getpsalm.org/schema/config"
+	xsi:schemaLocation="https://getpsalm.org/schema/config vendor-bin/psalm/vendor/vimeo/psalm/config.xsd"
+	findUnusedBaselineEntry="true"
+	findUnusedCode="false"
+	findUnusedIssueHandlerSuppression="false"
+	phpVersion="8.3"
+>
+	<projectFiles>
+		<directory name="lib" />
+		<directory name="tests" />
+		<ignoreFiles>
+			<directory name="vendor" />
+			<directory name="vendor-bin" />
+			<directory name="stubs" />
+		</ignoreFiles>
+	</projectFiles>
+	<stubs>
+		<!-- Classi dell'app File, che non fanno parte di nextcloud/ocp. -->
+		<file name="stubs/files-events.php" />
+		<!-- Interfaccia interna estesa da IRootFolder fino alla 34. -->
+		<file name="stubs/oc-hooks.php" />
+	</stubs>
+	<issueHandlers>
+		<!-- Nei test PHPUnit le proprieta' si inizializzano in setUp(). -->
+		<PropertyNotSetInConstructor>
+			<errorLevel type="suppress">
+				<directory name="tests" />
+			</errorLevel>
+		</PropertyNotSetInConstructor>
+		<!-- IClient::sendRequest() esiste solo dalla 34: sulla 33 l'attributo
+		     #[\Override] impedirebbe di caricare il test double. Con gli stub
+		     della 33 questa soppressione resta inutilizzata, e Psalm non
+		     permette di escluderla da sola: per questo in cima c'e'
+		     findUnusedIssueHandlerSuppression="false". -->
+		<MissingOverrideAttribute>
+			<errorLevel type="suppress">
+				<file name="tests/Finzione/ServizioFinto.php" />
+			</errorLevel>
+		</MissingOverrideAttribute>
+	</issueHandlers>
+	<extraFiles>
+		<directory name="vendor" />
+		<directory name="vendor-bin/phpunit/vendor" />
+	</extraFiles>
+</psalm>

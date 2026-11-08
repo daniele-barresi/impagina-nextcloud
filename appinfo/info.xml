@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>impagina</id>
+	<name>Impagina</name>
+	<name lang="it">Impagina</name>
+	<summary>Convert Markdown files to PDF with an impagina template</summary>
+	<summary lang="it">Converte i file Markdown in PDF con un template di impagina</summary>
+	<description><![CDATA[
+Converts the Markdown files stored in Nextcloud into PDF documents laid out
+with an [impagina](https://github.com/daniele-barresi/impagina) template, using
+a self-hosted impagina service.
+
+The administrator configures the connection to the service and the conversion
+options once, for the whole instance. Users convert their own `.md` files from
+the Files context menu: the app detects the referenced images automatically,
+sends everything to the service, saves the PDF next to the source file and
+notifies the user when the job is done.
+	]]></description>
+	<description lang="it"><![CDATA[
+Converte i file Markdown archiviati su Nextcloud in documenti PDF impaginati
+con un template di [impagina](https://github.com/daniele-barresi/impagina),
+tramite un servizio impagina ospitato in proprio.
+
+L'amministratore configura una sola volta la connessione al servizio e le
+opzioni di conversione, valide per tutta l'istanza. Gli utenti convertono i
+propri `.md` dal menu contestuale di File: l'app rileva da sola le immagini
+referenziate, le invia al servizio insieme al documento, salva il PDF nella
+stessa cartella del sorgente e avvisa l'utente con una notifica quando il
+lavoro è finito.
+	]]></description>
+	<version>1.0.0</version>
+	<licence>MIT</licence>
+	<author mail="daniele.barresi@gmail.com">Daniele Barresi</author>
+	<namespace>Impagina</namespace>
+	<category>files</category>
+	<category>office</category>
+	<website>https://github.com/daniele-barresi/impagina-nextcloud</website>
+	<bugs>https://github.com/daniele-barresi/impagina-nextcloud/issues</bugs>
+	<repository type="git">https://github.com/daniele-barresi/impagina-nextcloud.git</repository>
+	<dependencies>
+		<php min-version="8.3" max-version="8.5"/>
+		<nextcloud min-version="33" max-version="35"/>
+	</dependencies>
+	<settings>
+		<admin>OCA\Impagina\Settings\AdminSettings</admin>
+		<admin-section>OCA\Impagina\Settings\AdminSection</admin-section>
+	</settings>
+</info>

@@ -1,0 +1,53 @@
+{
+  "name": "impagina",
+  "version": "1.0.0",
+  "description": "Nextcloud app for the impagina service: convert Markdown files to PDF",
+  "author": "Daniele Barresi",
+  "homepage": "https://github.com/daniele-barresi/impagina-nextcloud",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniele-barresi/impagina-nextcloud.git"
+  },
+  "bugs": "https://github.com/daniele-barresi/impagina-nextcloud/issues",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --mode development build",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "stylelint": "stylelint --allow-empty-input src/**/*.vue src/**/*.scss src/**/*.css",
+    "typecheck": "vue-tsc --noEmit",
+    "watch": "vite --mode development build --watch"
+  },
+  "browserslist": [
+    "extends @nextcloud/browserslist-config"
+  ],
+  "dependencies": {
+    "@nextcloud/axios": "^2.6.0",
+    "@nextcloud/dialogs": "^7.5.0",
+    "@nextcloud/event-bus": "^3.3.3",
+    "@nextcloud/files": "^4.0.0",
+    "@nextcloud/initial-state": "^3.0.0",
+    "@nextcloud/l10n": "^3.4.1",
+    "@nextcloud/router": "^3.2.0",
+    "@nextcloud/vue": "^9.13.0",
+    "vue": "^3.5.41"
+  },
+  "devDependencies": {
+    "@nextcloud/browserslist-config": "^3.1.2",
+    "@nextcloud/eslint-config": "^8.4.2",
+    "@nextcloud/stylelint-config": "^3.1.1",
+    "@nextcloud/vite-config": "^2.5.2",
+    "@vue/tsconfig": "^0.9.1",
+    "sass": "^1.93.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.2",
+    "vue-tsc": "^3.3.11"
+  },
+  "engines": {
+    "node": "^24.0.0",
+    "npm": "^11.3.0"
+  }
+}

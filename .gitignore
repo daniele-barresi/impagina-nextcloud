@@ -1,0 +1,16 @@
+# Dipendenze
+/node_modules/
+/vendor/
+/vendor-bin/*/vendor/
+
+# Output di build (rigenerati con `npm run build` / `make dist`)
+/js/
+/css/
+/build/
+
+# Cache degli strumenti
+.php-cs-fixer.cache
+/tests/.phpunit.cache/
+
+# Copia locale della storia precedente al rilascio pubblico (mirror e bundle)
+/backup/
